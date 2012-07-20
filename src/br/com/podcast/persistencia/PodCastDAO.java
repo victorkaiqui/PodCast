@@ -36,4 +36,16 @@ public class PodCastDAO {
         em.getTransaction().commit();
 
     }
+
+    public List<PodCast> buscaPodCast(String busca) {
+
+        EntityManager em = PersistenceUtil.getUtil().obter().createEntityManager();
+
+        String sql = "SELECT pc FROM PodCast AS pc.title = :title";
+
+        Query q = em.createQuery(sql);
+        q.setParameter("title", busca);
+
+        return q.getResultList();
+    }
 }

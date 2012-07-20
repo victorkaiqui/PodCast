@@ -84,10 +84,10 @@ public class PodCastVIEW extends javax.swing.JFrame {
         jTable = new javax.swing.JTable();
         downloadjButton = new javax.swing.JButton();
         statusDownloadjLabel = new javax.swing.JLabel();
-        atualizaButton = new javax.swing.JButton();
         bibliotecaPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jList = new javax.swing.JList();
+        atualizaButton = new javax.swing.JButton();
         jMenuBar = new javax.swing.JMenuBar();
         arquivojMenu = new javax.swing.JMenu();
         preferenciajMenu = new javax.swing.JMenu();
@@ -122,8 +122,6 @@ public class PodCastVIEW extends javax.swing.JFrame {
 
         statusDownloadjLabel.setText("Status:");
 
-        atualizaButton.setText("Atualizar");
-
         javax.swing.GroupLayout PanelLayout = new javax.swing.GroupLayout(Panel);
         Panel.setLayout(PanelLayout);
         PanelLayout.setHorizontalGroup(
@@ -140,8 +138,6 @@ public class PodCastVIEW extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelLayout.createSequentialGroup()
                         .addComponent(statusDownloadjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 361, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(atualizaButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(downloadjButton, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE))
                 .addContainerGap())
@@ -155,14 +151,12 @@ public class PodCastVIEW extends javax.swing.JFrame {
                     .addComponent(urlFeedjTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lerFeedjButton))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 475, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(PanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(atualizaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(statusDownloadjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(downloadjButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                    .addComponent(statusDownloadjLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(downloadjButton, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18))
         );
 
         getContentPane().add(Panel, java.awt.BorderLayout.CENTER);
@@ -171,15 +165,25 @@ public class PodCastVIEW extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(jList);
 
+        atualizaButton.setText("Atualizar");
+
         javax.swing.GroupLayout bibliotecaPanelLayout = new javax.swing.GroupLayout(bibliotecaPanel);
         bibliotecaPanel.setLayout(bibliotecaPanelLayout);
         bibliotecaPanelLayout.setHorizontalGroup(
             bibliotecaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
+            .addGroup(bibliotecaPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(atualizaButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         bibliotecaPanelLayout.setVerticalGroup(
             bibliotecaPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)
+            .addGroup(bibliotecaPanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(atualizaButton)
+                .addContainerGap())
         );
 
         getContentPane().add(bibliotecaPanel, java.awt.BorderLayout.WEST);
@@ -230,7 +234,7 @@ public class PodCastVIEW extends javax.swing.JFrame {
     private javax.swing.JTextField urlFeedjTextField;
     // End of variables declaration//GEN-END:variables
 
-    //<editor-fold defaultstate="collapsed" desc="//Get and Set">
+    //<editor-fold defaultstate="collapsed" desc="//Getters and Setters">
     public JPanel getPanel() {
         return Panel;
     }

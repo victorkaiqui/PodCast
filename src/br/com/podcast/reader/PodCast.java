@@ -6,6 +6,7 @@ package br.com.podcast.reader;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlElement;
 
@@ -145,7 +146,7 @@ public class PodCast implements Serializable {
             return false;
         }
         final PodCast other = (PodCast) obj;
-        if (this.id != other.id && (this.id == null || !this.id.equals(other.id))) {
+        if (!Objects.equals(this.title, other.title)) {
             return false;
         }
         return true;
@@ -153,8 +154,8 @@ public class PodCast implements Serializable {
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 89 * hash + (this.id != null ? this.id.hashCode() : 0);
+        int hash = 3;
+        hash = 47 * hash + Objects.hashCode(this.title);
         return hash;
     }
 }

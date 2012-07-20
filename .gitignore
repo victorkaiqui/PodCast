@@ -1,1 +1,4 @@
 /proxyuser.properties
+/dist/
+/build/
+/nbproject/private/

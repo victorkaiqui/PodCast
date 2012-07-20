@@ -40,6 +40,7 @@ public class PodCastMain {
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
 
+            @Override
             public void run() {
 
                 new PodCastVIEW().setVisible(true);

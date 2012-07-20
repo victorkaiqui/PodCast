@@ -5,6 +5,7 @@ import br.com.podcast.persistencia.PodCastDAO;
 import br.com.podcast.reader.PodCast;
 import br.com.podcast.reader.PodCastChannel;
 import br.com.podcast.reader.Rss;
+import br.com.podcast.util.PodCastComparator;
 import br.com.podcast.util.PodCastMain;
 import br.com.podcast.view.DescricaoPodCastVIEW;
 import br.com.podcast.view.PodCastVIEW;
@@ -20,6 +21,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Locale;
 import java.util.logging.Level;
@@ -131,6 +133,7 @@ public class PodCastCTRL implements ActionListener, MouseListener {
     }
 
     private void configProxy() {
+        
         ProxyUserVIEW proxyView = new ProxyUserVIEW(view, true);
 
         proxyView.getEnderecotTextField().setText(PodCastMain.getProxyConfig().getProperty("host"));
@@ -221,6 +224,8 @@ public class PodCastCTRL implements ActionListener, MouseListener {
                     pcDao = new PodCastDAO();
                     podCast.setDownloadConcluido(Boolean.TRUE);
                     pcDao.alterarPodCast(podCast);
+                    
+                    podCast.setSelecionadoParaDownload(Boolean.FALSE);
 
                 } catch (Exception ex) {
                     Logger.getLogger(PodCastCTRL.class.getName()).log(Level.SEVERE, null, ex);
@@ -229,6 +234,7 @@ public class PodCastCTRL implements ActionListener, MouseListener {
         }
 
         view.getModel().fireTableDataChanged();
+        
 
     }
 
@@ -243,8 +249,11 @@ public class PodCastCTRL implements ActionListener, MouseListener {
                     podCastUrl.setNovoPodCast(Boolean.TRUE);
                     podCastUrl.setPodCastChannel(pcc);
                     pcc.getItens().add(podCastUrl);
+
+
                 }
             }
+            Collections.sort(pcc.getItens(), new PodCastComparator());
 
             pccDao = new PodCastChannelDAO();
             pccDao.salvarPodCastChannel(pcc);
