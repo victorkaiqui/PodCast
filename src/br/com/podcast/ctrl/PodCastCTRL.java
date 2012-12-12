@@ -41,6 +41,7 @@ public class PodCastCTRL implements ActionListener, MouseListener {
     private static Unmarshaller um;
     private PodCastChannelDAO pccDao;
     private PodCastDAO pcDao;
+    private String localDownload;
 
     public PodCastCTRL(PodCastVIEW view) {
         this.view = view;
@@ -113,6 +114,17 @@ public class PodCastCTRL implements ActionListener, MouseListener {
         }
     }
 
+    private void defineLocalDownload() {
+        localDownload = PodCastMain.getProxyConfig().getProperty("localDownload");
+        localDownload += System.getProperty("file.separator");
+
+        if (localDownload == null || localDownload.equals("")) {
+            localDownload = System.getProperty("user.home") + System.getProperty("file.separator");
+        } else {
+            localDownload += System.getProperty("file.separator");
+        }
+    }
+
     private void fileDownload() throws HeadlessException {
 
         int returnVal = view.getLocalDownload().showOpenDialog(view);
@@ -133,7 +145,7 @@ public class PodCastCTRL implements ActionListener, MouseListener {
     }
 
     private void configProxy() {
-        
+
         ProxyUserVIEW proxyView = new ProxyUserVIEW(view, true);
 
         proxyView.getEnderecotTextField().setText(PodCastMain.getProxyConfig().getProperty("host"));
@@ -145,6 +157,7 @@ public class PodCastCTRL implements ActionListener, MouseListener {
     }
 
     private void readerFeed() {
+        PodCastChannel pc = null;
         try {
 
             String podCastXml = view.getUrlFeedjTextField().getText();
@@ -156,8 +169,7 @@ public class PodCastCTRL implements ActionListener, MouseListener {
                 pccDao.salvarPodCastChannel(rss.getPodCastChannel());
 
             }
-
-            PodCastChannel pc = pccDao.buscaPodCastChannelComUrl(podCastXml);
+            pc = pccDao.buscaPodCastChannelComUrl(podCastXml);
 
             view.setTitle("PodCast - " + pc.getName());
             view.getModel().setPodCastsList(pc.getItens());
@@ -168,7 +180,7 @@ public class PodCastCTRL implements ActionListener, MouseListener {
         }
 
         view.getListModel().atualizarConteudo();
-
+        view.getUrlFeedjTextField().setText("");
     }
 
     private Rss unmarshalFeed(String podCastXml) throws MalformedURLException, JAXBException {
@@ -200,15 +212,19 @@ public class PodCastCTRL implements ActionListener, MouseListener {
                     String podCastNome = podCast.getEnclosure().getUrl().substring(podCast.getEnclosure().getUrl().lastIndexOf("/") + 1);
                     URLConnection conn = new URL(podCast.getEnclosure().getUrl()).openConnection();
                     InputStream is = conn.getInputStream();
-                    String localDownload = PodCastMain.getProxyConfig().getProperty("localDownload");
 
-                    if (localDownload == null || localDownload.equals("")) {
-                        localDownload = System.getProperty("user.home") + System.getProperty("file.separator");
+                    defineLocalDownload();
+
+                    File file = new File(localDownload + podCast.getPodCastChannel().getName());
+                    OutputStream outstream = null;
+                    String pathDownload = localDownload + podCast.getPodCastChannel().getName() + System.getProperty("file.separator") + podCastNome;
+                            
+                    if (file.exists() && file.isDirectory()) {
+                        outstream = new FileOutputStream(new File(pathDownload));
                     } else {
-                        localDownload += System.getProperty("file.separator");
+                        file.mkdir();
+                        outstream = new FileOutputStream(new File(pathDownload));
                     }
-
-                    OutputStream outstream = new FileOutputStream(new File(localDownload + podCastNome));
 
                     byte[] buffer = new byte[4096];
                     int len;
@@ -224,7 +240,7 @@ public class PodCastCTRL implements ActionListener, MouseListener {
                     pcDao = new PodCastDAO();
                     podCast.setDownloadConcluido(Boolean.TRUE);
                     pcDao.alterarPodCast(podCast);
-                    
+
                     podCast.setSelecionadoParaDownload(Boolean.FALSE);
 
                 } catch (Exception ex) {
@@ -232,10 +248,7 @@ public class PodCastCTRL implements ActionListener, MouseListener {
                 }
             }
         }
-
         view.getModel().fireTableDataChanged();
-        
-
     }
 
     private void updatePodCast() {
