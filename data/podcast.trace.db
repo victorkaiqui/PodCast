@@ -1,5 +1,0 @@
-07-13 17:53:43 jdbc[2]: exception
-org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "DELETE  FROM PODCAST WHERE ENCLOSURE_ID =  356
-DELETE[*]  FROM PODCAST WHERE ENCLOSURE_ID =  357 "; SQL statement:
-delete  from podcast where enclosure_id =  356
-delete  from podcast where enclosure_id =  357 [42000-158]
